@@ -21,7 +21,7 @@ class App extends Component {
     fetchGoods() {
         axios({
             method: 'get',
-            url: '/catalog-internest/shop.json',
+            url: './shop.json',
             timeout: 10000
         })
             .then(result => this.setGoods(result.data))

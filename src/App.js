@@ -8,10 +8,12 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            goods: null
-        }
+            goods: null,
+            sortType: 'none'
+        };
 
         this.setGoods = this.setGoods.bind(this);
+        this.changeSort = this.changeSort.bind(this);
     }
 
     componentDidMount() {
@@ -32,16 +34,27 @@ class App extends Component {
         this.setState(data);
     }
 
+    changeSort(sortType) {
+        this.setState({
+            sortType: sortType
+        });
+    }
+
     render() {
-        const { goods } = this.state;
+        const { goods, sortType } = this.state;
         return (
             <div className='App'>
                 {
                     (!goods)?
                         <h1>Загрузка</h1>:
                         <div>
-                            <Sort/>
-                            <Table goods={goods}/>
+                            <Sort
+                                changeSort={this.changeSort}
+                            />
+                            <Table
+                                goods={goods}
+                                sortType={sortType}
+                            />
                         </div>
                 }
             </div>

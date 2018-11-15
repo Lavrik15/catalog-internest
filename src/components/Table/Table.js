@@ -1,12 +1,17 @@
 import React from 'react';
+import { sortBy } from 'lodash';
 import {Icon, Menu, Table} from 'semantic-ui-react'
 import './Table.css';
 
-// class Table extends Component {
-//
-// }
+const sortGoods = {
+    none: list => list,
+    title: list => sortBy(list, (o) => o.data.title),
+    price: list => sortBy(list, (o) => o.data.price),
+    discount: list => sortBy(list, (o) => o.data.discount)
+};
 
-const TableContent = ({goods}) => {
+const TableContent = ({goods, sortType}) => {
+    const sortedGoods = sortGoods[sortType](goods);
     return (
         <Table className='Table' celled>
             <Table.Header>
@@ -20,10 +25,10 @@ const TableContent = ({goods}) => {
             </Table.Header>
 
             <Table.Body>
-                {goods.map((item) => {
+                {sortedGoods.map((item) => {
                     const {data} = item;
                     return (
-                        <Table.Row>
+                        <Table.Row key={data.id}>
                             <Table.Cell>{data.id}</Table.Cell>
                             <Table.Cell>{data.title}</Table.Cell>
                             <Table.Cell>

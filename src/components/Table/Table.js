@@ -10,8 +10,11 @@ const sortGoods = {
     discount: list => sortBy(list, (o) => o.data.discount)
 };
 
-const TableContent = ({goods, sortType}) => {
-    const sortedGoods = sortGoods[sortType](goods);
+const TableContent = ({goods, sortType, isReverse}) => {
+    debugger;
+    const sortedGoods = isReverse && sortType !== 'discount'?
+        sortGoods[sortType](goods) :
+        sortGoods[sortType](goods).reverse();
     return (
         <Table className='Table' celled>
             <Table.Header>

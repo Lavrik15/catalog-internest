@@ -9,7 +9,8 @@ class App extends Component {
         super(props);
         this.state = {
             goods: null,
-            sortType: 'none'
+            sortType: "none",
+            isReverse: false
         };
 
         this.setGoods = this.setGoods.bind(this);
@@ -36,12 +37,13 @@ class App extends Component {
 
     changeSort(sortType) {
         this.setState({
-            sortType: sortType
+            sortType,
+            isReverse: !this.state.isReverse
         });
     }
 
     render() {
-        const { goods, sortType } = this.state;
+        const { goods, sortType, isReverse } = this.state;
         return (
             <div className='App'>
                 {
@@ -54,6 +56,7 @@ class App extends Component {
                             <Table
                                 goods={goods}
                                 sortType={sortType}
+                                isReverse={isReverse}
                             />
                         </div>
                 }

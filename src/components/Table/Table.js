@@ -10,11 +10,17 @@ const sortGoods = {
     discount: list => sortBy(list, (o) => o.data.discount)
 };
 
-const TableContent = ({goods, sortType, isReverse}) => {
-    debugger;
-    const sortedGoods = isReverse && sortType !== 'discount'?
+const TableContent = ({goods, sortType, isReverseOff, searchValue}) => {
+
+    const sortedGoods = isReverseOff && sortType !== 'discount'?
         sortGoods[sortType](goods) :
         sortGoods[sortType](goods).reverse();
+
+    const filteredGoods = sortedGoods.filter((item) => {
+        const {data: {title}} = item;
+        return title.toLowerCase().includes(searchValue);
+    });
+
     return (
         <Table className='Table' celled>
             <Table.Header>
@@ -28,7 +34,7 @@ const TableContent = ({goods, sortType, isReverse}) => {
             </Table.Header>
 
             <Table.Body>
-                {sortedGoods.map((item) => {
+                {filteredGoods.map((item) => {
                     const {data} = item;
                     return (
                         <Table.Row key={data.id}>

@@ -10,11 +10,13 @@ class App extends Component {
         this.state = {
             goods: null,
             sortType: "none",
-            isReverse: false
+            isReverseOff: true,
+            searchValue: ""
         };
 
         this.setGoods = this.setGoods.bind(this);
         this.changeSort = this.changeSort.bind(this);
+        this.onChangeInput = this.onChangeInput.bind(this);
     }
 
     componentDidMount() {
@@ -38,25 +40,35 @@ class App extends Component {
     changeSort(sortType) {
         this.setState({
             sortType,
-            isReverse: !this.state.isReverse
+            isReverseOff: !this.state.isReverseOff
+        });
+    }
+
+    onChangeInput( {target: { value }} ) {
+
+        this.setState({
+            searchValue: value
         });
     }
 
     render() {
-        const { goods, sortType, isReverse } = this.state;
+        const { goods, sortType, isReverseOff, searchValue } = this.state;
         return (
             <div className='App'>
                 {
                     (!goods)?
                         <h1>Загрузка</h1>:
                         <div>
+                            <h2>{this.state.searchValue}</h2>
                             <Sort
                                 changeSort={this.changeSort}
+                                onChangeInput={this.onChangeInput}
                             />
                             <Table
                                 goods={goods}
                                 sortType={sortType}
-                                isReverse={isReverse}
+                                isReverseOff={isReverseOff}
+                                searchValue={searchValue}
                             />
                         </div>
                 }

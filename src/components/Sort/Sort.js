@@ -1,11 +1,15 @@
-import React, {Component} from 'react'
+import React from 'react'
 import { Input, Button } from 'semantic-ui-react'
 import "./Sort.css";
 
-const Sort = ({changeSort}) => {
+const Sort = ({changeSort, onChangeInput}) => {
     return(
         <div className='Sort'>
-            <Input action={{ icon: 'search' }} placeholder='Search...' className='Sort__search'/>
+            <Input action={{ icon: 'search' }}
+                   placeholder='Поиск'
+                   className='Sort__search'
+                   onChange={(e) => onChangeInput(e)}
+            />
             <div className='Sort__btn-group'>
                 <Button
                     className='ui icon button'

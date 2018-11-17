@@ -2,6 +2,7 @@ import React from 'react';
 import { sortBy } from 'lodash';
 import {Icon, Menu, Table} from 'semantic-ui-react'
 import './Table.css';
+import SingleItem from "../SingleItem/SingleItem";
 
 const sortGoods = {
     none: list => list,
@@ -10,15 +11,18 @@ const sortGoods = {
     discount: list => sortBy(list, (o) => o.data.discount)
 };
 
-const TableContent = ({goods, sortType, isReverseOff, searchValue}) => {
+const TableContent = ({goods, sortType, isReverseOff, searchValue, isSearchIdMatched, searchId}) => {
+    let isSingle = false;
+    const seachString = searchValue.toLowerCase().trim();
 
     const sortedGoods = isReverseOff && sortType !== 'discount'?
         sortGoods[sortType](goods) :
         sortGoods[sortType](goods).reverse();
 
     const filteredGoods = sortedGoods.filter((item) => {
-        const {data: {title}} = item;
-        return title.toLowerCase().includes(searchValue);
+        const {data: {title, id}} = item;
+        if (id === seachString) isSingle = true;
+        return title.toLowerCase().includes(seachString) || id === seachString;
     });
 
     return (
@@ -34,23 +38,26 @@ const TableContent = ({goods, sortType, isReverseOff, searchValue}) => {
             </Table.Header>
 
             <Table.Body>
-                {filteredGoods.map((item) => {
-                    const {data} = item;
-                    return (
-                        <Table.Row key={data.id}>
-                            <Table.Cell>{data.id}</Table.Cell>
-                            <Table.Cell>{data.title}</Table.Cell>
-                            <Table.Cell>
-                                <img className='Table__image'
-                                     src={data.base_url}
-                                     alt=''/>
-                            </Table.Cell>
-                            <Table.Cell>{data.price}</Table.Cell>
-                            <Table.Cell>{data.discount}%</Table.Cell>
-                        </Table.Row>
-                    );
-                })}
-
+                {
+                    (isSingle) ?
+                        <SingleItem data={filteredGoods}/> :
+                        filteredGoods.map((item) => {
+                            const {data} = item;
+                            return (
+                                <Table.Row key={data.id}>
+                                    <Table.Cell>{data.id}</Table.Cell>
+                                    <Table.Cell>{data.title}</Table.Cell>
+                                    <Table.Cell>
+                                        <img className='Table__image'
+                                             src={data.base_url}
+                                             alt=''/>
+                                    </Table.Cell>
+                                    <Table.Cell>{data.price}</Table.Cell>
+                                    <Table.Cell>{data.discount}%</Table.Cell>
+                                </Table.Row>
+                            );
+                        })
+                }
             </Table.Body>
 
             <Table.Footer>

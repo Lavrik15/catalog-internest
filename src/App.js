@@ -11,12 +11,14 @@ class App extends Component {
             goods: null,
             sortType: "none",
             isReverseOff: true,
-            searchValue: ""
+            searchValue: "",
+            searchId: false
         };
 
         this.setGoods = this.setGoods.bind(this);
         this.changeSort = this.changeSort.bind(this);
         this.onChangeInput = this.onChangeInput.bind(this);
+        this.isSearchIdMatched = this.isSearchIdMatched.bind(this);
     }
 
     componentDidMount() {
@@ -45,21 +47,25 @@ class App extends Component {
     }
 
     onChangeInput( {target: { value }} ) {
-
         this.setState({
             searchValue: value
         });
     }
 
+    isSearchIdMatched(value) {
+        this.setState({
+            searchId: value
+        });
+    }
+
     render() {
-        const { goods, sortType, isReverseOff, searchValue } = this.state;
+        const { goods, sortType, isReverseOff, searchValue, searchId } = this.state;
         return (
             <div className='App'>
                 {
                     (!goods)?
                         <h1>Загрузка</h1>:
                         <div>
-                            <h2>{this.state.searchValue}</h2>
                             <Sort
                                 changeSort={this.changeSort}
                                 onChangeInput={this.onChangeInput}
@@ -69,6 +75,8 @@ class App extends Component {
                                 sortType={sortType}
                                 isReverseOff={isReverseOff}
                                 searchValue={searchValue}
+                                isSearchIdMatched={this.isSearchIdMatched}
+                                searchId={searchId}
                             />
                         </div>
                 }

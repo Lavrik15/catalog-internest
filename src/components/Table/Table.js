@@ -13,17 +13,25 @@ const sortGoods = {
 
 const TableContent = ({goods, sortType, isReverseOff, searchValue, isSearchIdMatched, searchId, itemsOnPage, showMoreItems}) => {
     let isSingle = false;
+
     const searchString = searchValue.toLowerCase().trim();
 
-    const sortedGoods = isReverseOff && sortType !== 'discount'?
-        sortGoods[sortType](goods) :
-        sortGoods[sortType](goods).reverse();
+    const sortedGoods = (
+        isReverseOff && sortType !== 'discount'?
+            sortGoods[sortType](goods) :
+            sortGoods[sortType](goods).reverse())
+        .filter((item) => {
+            const {data: {title, id}} = item;
+            if (id === searchString) isSingle = true;
+            return title.toLowerCase().includes(searchString) || id === searchString;
+        });
 
-    const filteredGoods = sortedGoods.filter((item) => {
-        const {data: {title, id}} = item;
-        if (id === searchString) isSingle = true;
-        return title.toLowerCase().includes(searchString) || id === searchString;
-    });
+    const isBtnDisabled = () => {
+        const goodsLen = sortedGoods.length;
+        if (goodsLen >= itemsOnPage) return false;
+        return true;
+    }
+
 
     return (
         <Table className='Table' celled>
@@ -40,8 +48,8 @@ const TableContent = ({goods, sortType, isReverseOff, searchValue, isSearchIdMat
             <Table.Body>
                 {
                     (isSingle) ?
-                        <SingleItem data={filteredGoods}/> :
-                        filteredGoods.slice(0, itemsOnPage).map((item) => {
+                        <SingleItem data={sortedGoods}/> :
+                        sortedGoods.slice(0, itemsOnPage).map((item) => {
                             const {data} = item;
                             return (
                                 <Table.Row key={data.id}>
@@ -63,7 +71,11 @@ const TableContent = ({goods, sortType, isReverseOff, searchValue, isSearchIdMat
             <Table.Footer>
                 <Table.Row>
                     <Table.HeaderCell colSpan='5'>
-                        <Button onClick={() => showMoreItems()}>показать еще</Button>
+                        {
+                            (!isBtnDisabled()) ?
+                                <Button onClick={() => showMoreItems()}>показать еще</Button> :
+                                <Button disabled>показать еще</Button>
+                        }
                     </Table.HeaderCell>
                 </Table.Row>
             </Table.Footer>

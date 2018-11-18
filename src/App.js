@@ -13,7 +13,8 @@ class App extends Component {
             isReverseOff: true,
             searchValue: "",
             searchId: false,
-            itemsOnPage: 5
+            itemsOnPage: 5,
+            defaultItemsOnPage: 5
         };
 
         this.setGoods = this.setGoods.bind(this);
@@ -50,13 +51,15 @@ class App extends Component {
 
     onChangeInput( {target: { value }} ) {
         this.setState({
-            searchValue: value
+            searchValue: value,
+            itemsOnPage: this.state.defaultItemsOnPage
         });
     }
 
     isSearchIdMatched(value) {
         this.setState({
-            searchId: value
+            searchId: value,
+            itemsOnPage: this.state.defaultItemsOnPage
         });
     }
 
@@ -65,10 +68,12 @@ class App extends Component {
         this.setState({
             itemsOnPage: itemsOnPage + itemsOnPage
         });
+
+
     }
 
     render() {
-        const { goods, sortType, isReverseOff, searchValue, searchId, itemsOnPage } = this.state;
+        const { goods, sortType, isReverseOff, searchValue, searchId, itemsOnPage, isDisabledBtn } = this.state;
         return (
             <div className='App'>
                 {
@@ -88,6 +93,7 @@ class App extends Component {
                                 searchId={searchId}
                                 itemsOnPage={itemsOnPage}
                                 showMoreItems={this.showMoreItems}
+                                isDisabledBtn={isDisabledBtn}
                             />
                         </div>
                 }

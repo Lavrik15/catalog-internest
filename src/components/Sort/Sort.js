@@ -5,7 +5,7 @@ import "./Sort.css";
 const Sort = ({changeSort, onChangeInput}) => {
     return(
         <div className='Sort'>
-            <Input action={{ icon: 'search' }}
+            <Input
                    placeholder='Поиск'
                    className='Sort__search'
                    onChange={(e) => onChangeInput(e)}

@@ -76,13 +76,16 @@ class App extends Component {
 
     onMinChange({target: { value }}) {
         this.setState({
-            minCost: value
+            minCost: value,
+            itemsOnPage: this.state.defaultItemsOnPage
         });
     }
 
     onMaxChange({target: { value }}) {
+        const max = value === '' ? Infinity : value;
         this.setState({
-            maxCost: value
+            maxCost: max,
+            itemsOnPage: this.state.defaultItemsOnPage
         });
     }
 

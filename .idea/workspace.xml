@@ -4,9 +4,9 @@
     <list default="true" id="be8211b7-1c2c-442c-8043-21a99c0d0c52" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/asset-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/precache-manifest.a5848507456de281ee9e2f4e12e115c5.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/precache-manifest.788a5c300f7c0a4bcf957d0c37612124.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/service-worker.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/service-worker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SingleItem/SingleItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SingleItem/SingleItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -29,11 +29,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="App.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-80">
-              <caret line="26" column="55" selection-start-line="26" selection-start-column="55" selection-end-line="26" selection-end-column="55" />
+            <state relative-caret-position="717">
+              <caret line="85" column="23" lean-forward="true" selection-start-line="85" selection-start-column="23" selection-end-line="85" selection-end-column="23" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -44,7 +44,7 @@
       <file leaf-file-name="Table.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Table/Table.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-320">
+            <state relative-caret-position="-237">
               <caret line="20" column="40" selection-start-line="20" selection-start-column="40" selection-end-line="20" selection-end-column="40" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
@@ -53,11 +53,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SingleItem.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SingleItem.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/SingleItem/SingleItem.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="40">
-              <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+              <caret line="2" selection-start-line="2" selection-end-line="2" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -150,9 +150,9 @@
         <option value="$PROJECT_DIR$/src/util/searchFilter.js" />
         <option value="$PROJECT_DIR$/src/components/SingleItem/SingleItem.css" />
         <option value="$PROJECT_DIR$/src/components/Sort/Sort.js" />
-        <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/components/Table/Table.js" />
         <option value="$PROJECT_DIR$/src/components/SingleItem/SingleItem.js" />
+        <option value="$PROJECT_DIR$/src/App.js" />
       </list>
     </option>
   </component>
@@ -259,7 +259,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49493000" />
+    <option name="totallyTimeSpent" value="50095000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
@@ -653,19 +653,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.js">
+    <entry file="file://$PROJECT_DIR$/src/components/SingleItem/SingleItem.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-80">
-          <caret line="26" column="55" selection-start-line="26" selection-start-column="55" selection-end-line="26" selection-end-column="55" />
+        <state relative-caret-position="40">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
           <folding>
-            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Table/Table.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-320">
+        <state relative-caret-position="-237">
           <caret line="20" column="40" selection-start-line="20" selection-start-column="40" selection-end-line="20" selection-end-column="40" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
@@ -673,12 +673,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/SingleItem/SingleItem.js">
+    <entry file="file://$PROJECT_DIR$/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+        <state relative-caret-position="717">
+          <caret line="85" column="23" lean-forward="true" selection-start-line="85" selection-start-column="23" selection-end-line="85" selection-end-column="23" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>

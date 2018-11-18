@@ -12,13 +12,15 @@ class App extends Component {
             sortType: "none",
             isReverseOff: true,
             searchValue: "",
-            searchId: false
+            searchId: false,
+            itemsOnPage: 5
         };
 
         this.setGoods = this.setGoods.bind(this);
         this.changeSort = this.changeSort.bind(this);
         this.onChangeInput = this.onChangeInput.bind(this);
         this.isSearchIdMatched = this.isSearchIdMatched.bind(this);
+        this.showMoreItems = this.showMoreItems.bind(this);
     }
 
     componentDidMount() {
@@ -58,8 +60,15 @@ class App extends Component {
         });
     }
 
+    showMoreItems() {
+        const { itemsOnPage } = this.state;
+        this.setState({
+            itemsOnPage: itemsOnPage + itemsOnPage
+        });
+    }
+
     render() {
-        const { goods, sortType, isReverseOff, searchValue, searchId } = this.state;
+        const { goods, sortType, isReverseOff, searchValue, searchId, itemsOnPage } = this.state;
         return (
             <div className='App'>
                 {
@@ -77,6 +86,8 @@ class App extends Component {
                                 searchValue={searchValue}
                                 isSearchIdMatched={this.isSearchIdMatched}
                                 searchId={searchId}
+                                itemsOnPage={itemsOnPage}
+                                showMoreItems={this.showMoreItems}
                             />
                         </div>
                 }

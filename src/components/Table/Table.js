@@ -1,6 +1,6 @@
 import React from 'react';
 import { sortBy } from 'lodash';
-import {Icon, Menu, Table} from 'semantic-ui-react'
+import {Table, Button} from 'semantic-ui-react';
 import './Table.css';
 import SingleItem from "../SingleItem/SingleItem";
 
@@ -11,9 +11,9 @@ const sortGoods = {
     discount: list => sortBy(list, (o) => o.data.discount)
 };
 
-const TableContent = ({goods, sortType, isReverseOff, searchValue, isSearchIdMatched, searchId}) => {
+const TableContent = ({goods, sortType, isReverseOff, searchValue, isSearchIdMatched, searchId, itemsOnPage, showMoreItems}) => {
     let isSingle = false;
-    const seachString = searchValue.toLowerCase().trim();
+    const searchString = searchValue.toLowerCase().trim();
 
     const sortedGoods = isReverseOff && sortType !== 'discount'?
         sortGoods[sortType](goods) :
@@ -21,8 +21,8 @@ const TableContent = ({goods, sortType, isReverseOff, searchValue, isSearchIdMat
 
     const filteredGoods = sortedGoods.filter((item) => {
         const {data: {title, id}} = item;
-        if (id === seachString) isSingle = true;
-        return title.toLowerCase().includes(seachString) || id === seachString;
+        if (id === searchString) isSingle = true;
+        return title.toLowerCase().includes(searchString) || id === searchString;
     });
 
     return (
@@ -41,7 +41,7 @@ const TableContent = ({goods, sortType, isReverseOff, searchValue, isSearchIdMat
                 {
                     (isSingle) ?
                         <SingleItem data={filteredGoods}/> :
-                        filteredGoods.map((item) => {
+                        filteredGoods.slice(0, itemsOnPage).map((item) => {
                             const {data} = item;
                             return (
                                 <Table.Row key={data.id}>
@@ -63,18 +63,7 @@ const TableContent = ({goods, sortType, isReverseOff, searchValue, isSearchIdMat
             <Table.Footer>
                 <Table.Row>
                     <Table.HeaderCell colSpan='5'>
-                        <Menu floated='right' pagination>
-                            <Menu.Item as='a' icon>
-                                <Icon name='chevron left'/>
-                            </Menu.Item>
-                            <Menu.Item as='a'>1</Menu.Item>
-                            <Menu.Item as='a'>2</Menu.Item>
-                            <Menu.Item as='a'>3</Menu.Item>
-                            <Menu.Item as='a'>4</Menu.Item>
-                            <Menu.Item as='a' icon>
-                                <Icon name='chevron right'/>
-                            </Menu.Item>
-                        </Menu>
+                        <Button onClick={() => showMoreItems()}>показать еще</Button>
                     </Table.HeaderCell>
                 </Table.Row>
             </Table.Footer>

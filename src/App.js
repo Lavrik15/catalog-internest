@@ -16,7 +16,7 @@ class App extends Component {
             itemsOnPage: 5,
             defaultItemsOnPage: 5,
             minCost: 0,
-            maxCost: Infinity
+            maxCost: 0
         };
 
         this.setGoods = this.setGoods.bind(this);
@@ -26,13 +26,35 @@ class App extends Component {
         this.showMoreItems = this.showMoreItems.bind(this);
         this.onMinChange = this.onMinChange.bind(this);
         this.onMaxChange = this.onMaxChange.bind(this);
+        this.removeFilter = this.removeFilter.bind(this);
     }
 
     componentDidMount() {
         this.fetchGoods();
+
+        window.addEventListener(
+            "beforeunload",
+            this.saveStateToLocalStorage.bind(this)
+        );
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener(
+            "beforeunload",
+            this.saveStateToLocalStorage.bind(this)
+        );
+
+        this.saveStateToLocalStorage();
     }
 
     fetchGoods() {
+
+        const cached = JSON.parse(localStorage.getItem('goods'));
+        if (cached) {
+            this.hydrateStateWithLocalStorage();
+            return;
+        }
+
         axios({
             method: 'get',
             url: './shop.json',
@@ -44,6 +66,34 @@ class App extends Component {
 
     setGoods(data) {
         this.setState(data);
+    }
+
+    saveStateToLocalStorage() {
+        // for every item in React state
+        for (let key in this.state) {
+            // save to localStorage
+            localStorage.setItem(key, JSON.stringify(this.state[key]));
+        }
+    }
+
+    hydrateStateWithLocalStorage() {
+        // for all items in state
+        for (let key in this.state) {
+            // if the key exists in localStorage
+            if (localStorage.hasOwnProperty(key)) {
+                // get the key's value from localStorage
+                let value = localStorage.getItem(key);
+
+                // parse the localStorage string and setState
+                try {
+                    value = JSON.parse(value);
+                    this.setState({ [key]: value });
+                } catch (e) {
+                    // handle empty string
+                    this.setState({ [key]: value });
+                }
+            }
+        }
     }
 
     changeSort(sortType) {
@@ -89,6 +139,19 @@ class App extends Component {
         });
     }
 
+    removeFilter() {
+        this.setState({
+            sortType: "none",
+            isReverseOff: true,
+            searchValue: "",
+            searchId: false,
+            itemsOnPage: 5,
+            defaultItemsOnPage: 5,
+            minCost: 0,
+            maxCost: 0
+        });
+    }
+
     render() {
         const { goods, sortType, isReverseOff, searchValue, searchId, itemsOnPage, minCost, maxCost } = this.state;
         return (
@@ -102,6 +165,10 @@ class App extends Component {
                                 onChangeInput={this.onChangeInput}
                                 onMinChange={this.onMinChange}
                                 onMaxChange={this.onMaxChange}
+                                removeFilter={this.removeFilter}
+                                searchValue={searchValue}
+                                minCost={minCost}
+                                maxCost={maxCost}
                             />
                             <Table
                                 goods={goods}

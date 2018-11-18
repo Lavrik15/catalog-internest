@@ -28,8 +28,7 @@ const TableContent = ({goods, sortType, isReverseOff, searchValue, isSearchIdMat
         .filter(item => {
             const {data: { price }} = item;
             const min = Number(minCost);
-            const max = Number(maxCost);
-            return (price >= min && price <= max);
+            return (price >= min && (maxCost ? price <= Number(maxCost) : true));
         });
 
     const isBtnDisabled = () => {

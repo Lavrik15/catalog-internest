@@ -11,7 +11,7 @@ const sortGoods = {
     discount: list => sortBy(list, (o) => o.data.discount)
 };
 
-const TableContent = ({goods, sortType, isReverseOff, searchValue, isSearchIdMatched, searchId, itemsOnPage, showMoreItems}) => {
+const TableContent = ({goods, sortType, isReverseOff, searchValue, isSearchIdMatched, searchId, itemsOnPage, showMoreItems, minCost, maxCost}) => {
     let isSingle = false;
 
     const searchString = searchValue.toLowerCase().trim();
@@ -20,17 +20,22 @@ const TableContent = ({goods, sortType, isReverseOff, searchValue, isSearchIdMat
         isReverseOff && sortType !== 'discount'?
             sortGoods[sortType](goods) :
             sortGoods[sortType](goods).reverse())
-        .filter((item) => {
+        .filter(item => {
             const {data: {title, id}} = item;
             if (id === searchString) isSingle = true;
             return title.toLowerCase().includes(searchString) || id === searchString;
+        })
+        .filter(item => {
+            const {data: { price }} = item;
+            const min = Number(minCost);
+            const max = Number(maxCost);
+            return (price >= min && price <= max);
         });
 
     const isBtnDisabled = () => {
         const goodsLen = sortedGoods.length;
-        if (goodsLen >= itemsOnPage) return false;
-        return true;
-    }
+        return (goodsLen >= itemsOnPage);
+    };
 
 
     return (
@@ -72,7 +77,7 @@ const TableContent = ({goods, sortType, isReverseOff, searchValue, isSearchIdMat
                 <Table.Row>
                     <Table.HeaderCell colSpan='5'>
                         {
-                            (!isBtnDisabled()) ?
+                            (isBtnDisabled()) ?
                                 <Button onClick={() => showMoreItems()}>показать еще</Button> :
                                 <Button disabled>показать еще</Button>
                         }

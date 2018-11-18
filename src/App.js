@@ -14,7 +14,9 @@ class App extends Component {
             searchValue: "",
             searchId: false,
             itemsOnPage: 5,
-            defaultItemsOnPage: 5
+            defaultItemsOnPage: 5,
+            minCost: 0,
+            maxCost: Infinity
         };
 
         this.setGoods = this.setGoods.bind(this);
@@ -22,6 +24,8 @@ class App extends Component {
         this.onChangeInput = this.onChangeInput.bind(this);
         this.isSearchIdMatched = this.isSearchIdMatched.bind(this);
         this.showMoreItems = this.showMoreItems.bind(this);
+        this.onMinChange = this.onMinChange.bind(this);
+        this.onMaxChange = this.onMaxChange.bind(this);
     }
 
     componentDidMount() {
@@ -68,12 +72,22 @@ class App extends Component {
         this.setState({
             itemsOnPage: itemsOnPage + itemsOnPage
         });
+    }
 
+    onMinChange({target: { value }}) {
+        this.setState({
+            minCost: value
+        });
+    }
 
+    onMaxChange({target: { value }}) {
+        this.setState({
+            maxCost: value
+        });
     }
 
     render() {
-        const { goods, sortType, isReverseOff, searchValue, searchId, itemsOnPage, isDisabledBtn } = this.state;
+        const { goods, sortType, isReverseOff, searchValue, searchId, itemsOnPage, minCost, maxCost } = this.state;
         return (
             <div className='App'>
                 {
@@ -83,6 +97,8 @@ class App extends Component {
                             <Sort
                                 changeSort={this.changeSort}
                                 onChangeInput={this.onChangeInput}
+                                onMinChange={this.onMinChange}
+                                onMaxChange={this.onMaxChange}
                             />
                             <Table
                                 goods={goods}
@@ -93,7 +109,8 @@ class App extends Component {
                                 searchId={searchId}
                                 itemsOnPage={itemsOnPage}
                                 showMoreItems={this.showMoreItems}
-                                isDisabledBtn={isDisabledBtn}
+                                minCost={minCost}
+                                maxCost={maxCost}
                             />
                         </div>
                 }

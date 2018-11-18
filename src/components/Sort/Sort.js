@@ -2,7 +2,7 @@ import React from 'react'
 import { Input, Button } from 'semantic-ui-react'
 import "./Sort.css";
 
-const Sort = ({changeSort, onChangeInput}) => {
+const Sort = ({changeSort, onChangeInput, onMinChange, onMaxChange}) => {
     return(
         <div className='Sort'>
             <Input
@@ -34,8 +34,18 @@ const Sort = ({changeSort, onChangeInput}) => {
                 </button>
             </div>
             <div className='Sort__Range'>
-                <Input type='number' min='0' placeholder='мин (руб.)' />
-                <Input type='number' min='0' placeholder='макс (руб.)' />
+                <Input
+                    type='number'
+                    min='0'
+                    placeholder='мин (руб.)'
+                    onChange={(e) => onMinChange(e)}
+                />
+                <Input
+                    type='number'
+                    min='0'
+                    placeholder='макс (руб.)'
+                    onChange={(e) => onMaxChange(e)}
+                />
             </div>
         </div>
     );
